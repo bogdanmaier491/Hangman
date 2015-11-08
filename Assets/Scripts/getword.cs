@@ -9,8 +9,6 @@ public class getword : MonoBehaviour
 	public string FilePath;
 	public string FileName;
 
-	public Text _text;
-
 	public string getWord (int difficulty)
 	{
 		int[] diff = new int[3];
@@ -61,10 +59,5 @@ public class getword : MonoBehaviour
 		file.Close ();
 
 		return line;
-	}
-
-	public void changetext ()
-	{
-		_text.text = getWord (1);
 	}
 }
