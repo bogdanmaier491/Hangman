@@ -1,15 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Pause : MonoBehaviour {
+public class Pause : MonoBehaviour
+{
 
 
-	private ShowPanels showPanels;						//Reference to the ShowPanels script used to hide and show UI panels
-	private bool isPaused;								//Boolean to check if the game is paused or not
-	private StartOptions startScript;					//Reference to the StartButton script
+	private ShowPanels showPanels;
+	//Reference to the ShowPanels script used to hide and show UI panels
+	private bool isPaused;
+	//Boolean to check if the game is paused or not
+	private StartOptions startScript;
+	//Reference to the StartButton script
+	[SerializeField]
+	private GameObject tintpanel;
 	
 	//Awake is called before Start()
-	void Awake()
+	void Awake ()
 	{
 		//Get a component reference to ShowPanels attached to this object, store in showPanels variable
 		showPanels = GetComponent<ShowPanels> ();
@@ -18,17 +24,16 @@ public class Pause : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 
 		//Check if the Cancel button in Input Manager is down this frame (default is Escape key) and that game is not paused, and that we're not in main menu
-		if (Input.GetButtonDown ("Cancel") && !isPaused && !startScript.inMainMenu) 
-		{
+		if (Input.GetButtonDown ("Cancel") && !isPaused && !startScript.inMainMenu) {
 			//Call the DoPause function to pause the game
-			DoPause();
+			DoPause ();
 		} 
 		//If the button is pressed and the game is paused and not in main menu
-		else if (Input.GetButtonDown ("Cancel") && isPaused && !startScript.inMainMenu) 
-		{
+		else if (Input.GetButtonDown ("Cancel") && isPaused && !startScript.inMainMenu) {
 			//Call the UnPause function to unpause the game
 			UnPause ();
 		}
@@ -36,7 +41,7 @@ public class Pause : MonoBehaviour {
 	}
 
 
-	public void DoPause()
+	public void DoPause ()
 	{
 		//Set isPaused to true
 		isPaused = true;
@@ -44,10 +49,11 @@ public class Pause : MonoBehaviour {
 		Time.timeScale = 0;
 		//call the ShowPausePanel function of the ShowPanels script
 		showPanels.ShowPausePanel ();
+		tintpanel.SetActive (true);
 	}
 
 
-	public void UnPause()
+	public void UnPause ()
 	{
 		//Set isPaused to false
 		isPaused = false;
@@ -55,6 +61,8 @@ public class Pause : MonoBehaviour {
 		Time.timeScale = 1;
 		//call the HidePausePanel function of the ShowPanels script
 		showPanels.HidePausePanel ();
+		tintpanel.SetActive (false);
+
 	}
 
 
